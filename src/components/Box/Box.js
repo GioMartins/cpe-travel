@@ -4,7 +4,7 @@ import axios from 'axios';
 import './Box.css';
 import { BiArrowBack } from 'react-icons/bi';
 import { Button } from 'react-bootstrap';
-import Input from '../Input';
+import Input from '../input';
 
 function Box({
   title, subtitle, nextMessage, nextButton, input, email, password,
