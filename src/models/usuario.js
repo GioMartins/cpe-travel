@@ -1,4 +1,3 @@
-const { getByDisplayValue } = require("@testing-library/react");
 const connection = require("../database/connection");
 
 module.exports = {
@@ -18,5 +17,6 @@ module.exports = {
     },
     async deleteById(user_id) {
         const result = await connection("usuario").where({ user_id }).delete();
+        return result;
     }
 }
