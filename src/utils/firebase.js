@@ -10,6 +10,9 @@ const firebaseConfig = {
 }
 
 firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
 
 module.exports = {
     async createNewUser(email, password){
