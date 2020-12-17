@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./Box.css";
 import { BiArrowBack } from "react-icons/bi";
@@ -31,7 +31,7 @@ function Box({
       ? "/img/Icones/novofundo_login.png"
       : "/img/Icones/novofundo-cadastro.png";
   const marginNextButton = nextButton === "Cadastrar" ? "50px" : "0px";
-  
+
   async function create(objetoCadastro) {
     console.log(objetoCadastro);
     const objetoBackend = {
@@ -47,14 +47,8 @@ function Box({
       await api.post("usuario", objetoBackend);      
     }
     catch{
-      alert('Erro!');
+      alert('Erro no cadastro!');
     }
-
-    /*axios.post('http://localhost:8080/users', objetoCadastro)
-      .then(alert('Cadastrado com sucesso!'))
-      .catch(() => {
-        throw new Error('Não foi possível cadastrar os dados :(');
-      });*/
   }
 
   const registerUser = () => {
