@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Box from '../../components/Box';
 
 function Register() {
+  const [nome,setNome] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmEmail, setConfirmEmail] = useState();
@@ -10,21 +11,24 @@ function Register() {
   const handleChangePassword = (e) => setPassword(e.target.value);
   const handleChangeConfirmEmail = (e) => setConfirmEmail(e.target.value);
   const handleChangeConfirmPassword = (e) => setConfirmPassWord(e.target.value);
+  const handleChangeNome = (e) => setNome(e.target.value);
 
   const input = [
-
+    { controlId: 'nome', type: 'name', placeholder: 'Digite o seu nome'},
     { controlId: 'email', type: 'email', placeholder: 'Digite o seu email' },
     { controlId: 'email2', type: 'email', placeholder: 'Confirme o seu email' },
     { controlId: 'senha', type: 'password', placeholder: 'Digite a sua senha' },
     { controlId: 'senha2', type: 'password', placeholder: 'Confirme a sua senha' },
   ];
-
+  
   return (
-    <Box
+    <Box 
+      setNome={handleChangeNome}
       setEmail={handleChangeEmail}
       setSenha={handleChangePassword}
       setConfirmEmail={handleChangeConfirmEmail}
       setConfirmPassword={handleChangeConfirmPassword}
+      nome={nome}
       email={email}
       password={password}
       confirmEmail={confirmEmail}
