@@ -3,13 +3,16 @@ import { Form } from 'react-bootstrap';
 import './input.css';
 
 function Input({
-  input, setEmail, setSenha, setConfirmEmail, setConfirmPassword,
+  input, setNome, setEmail, setSenha, setConfirmEmail, setConfirmPassword,
 }) {
   return (
     <div>
       {input.map((item) => {
         let fn;
-        if (item.type === 'email') {
+        if (item.type === 'name'){
+          fn = item.controlId === 'nome' ? setNome : setNome;
+        }
+        else if (item.type === 'email') {
           fn = item.controlId === 'email' ? setEmail : setConfirmEmail;
         } else {
           fn = item.controlId === 'senha' ? setSenha : setConfirmPassword;

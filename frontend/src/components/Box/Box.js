@@ -5,10 +5,11 @@ import './Box.css';
 import { BiArrowBack } from 'react-icons/bi';
 import { Button } from 'react-bootstrap';
 import Input from '../input';
+import api from '../../services/api';
 
 function Box({
-  title, subtitle, nextMessage, nextButton, input, email, password,
-  confirmEmail, confirmPassword, setEmail, setSenha, setConfirmEmail, setConfirmPassword,
+  title, subtitle, nextMessage, nextButton, input, nome, email, password,
+  confirmEmail, confirmPassword, setNome, setEmail, setSenha, setConfirmEmail, setConfirmPassword,
 }) {
   const history = useHistory();
   const [users, setUsers] = useState([]);
@@ -31,15 +32,19 @@ function Box({
   }, []);
 
   function create(objetoCadastro) {
-    axios.post('http://localhost:8080/users', objetoCadastro)
+    alert(nome);
+    alert(email);
+    alert(password);
+    /*axios.post('http://localhost:8080/users', objetoCadastro)
       .then(alert('Cadastrado com sucesso!'))
       .catch(() => {
         throw new Error('Não foi possível cadastrar os dados :(');
-      });
+      });*/
   }
 
   const registerUser = () => {
     create({
+      nome,
       email,
       password,
       admin: false,
@@ -84,6 +89,7 @@ function Box({
           </p>
           <Input
             input={input}
+            setNome={setNome}
             setSenha={setSenha}
             setEmail={setEmail}
             setConfirmEmail={setConfirmEmail}
