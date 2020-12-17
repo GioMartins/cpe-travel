@@ -7,9 +7,6 @@ module.exports = {
             email: Joi.string().email().required(),
             senha: Joi.string().required(),
         }),
-        [Segments.HEADERS]: Joi.object().keys({
-            authorization: Joi.string().required()
-        }).unknown(),
     }),
     getByUsuario: celebrate({
         [Segments.PARAMS]: Joi.object().keys({
