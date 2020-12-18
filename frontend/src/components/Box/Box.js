@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import "./Box.css";
 import { BiArrowBack } from "react-icons/bi";
@@ -32,6 +32,20 @@ function Box({
       : "/img/Icones/novofundo-cadastro.png";
   const marginNextButton = nextButton === "Cadastrar" ? "50px" : "0px";
 
+  async function loginUser() {
+    const objetoBackend = {
+      email,
+      senha,
+    };
+    objetoBackend.email = email;
+    objetoBackend.senha = password;
+    console.log(objetoBackend);
+    try {
+      await api.post("login", objetoBackend);
+    } catch (err) {
+      alert("Erro no Login");
+    }
+  }
   async function create(objetoCadastro) {
     console.log(objetoCadastro);
     const objetoBackend = {
@@ -42,12 +56,11 @@ function Box({
     objetoBackend.nome = objetoCadastro.nome;
     objetoBackend.email = objetoCadastro.email;
     objetoBackend.senha = objetoCadastro.password;
-    
-    try{
-      await api.post("usuario", objetoBackend);      
-    }
-    catch{
-      alert('Erro no cadastro!');
+
+    try {
+      await api.post("usuario", objetoBackend);
+    } catch {
+      alert("Erro no cadastro!");
     }
   }
 
@@ -63,13 +76,14 @@ function Box({
     if (nextButton === "Cadastrar") {
       const userEmail = email;
       const userPassword = password;
-      const existUser = users.filter((item) => item.email === userEmail);
+      loginUser();
+      /*const existUser = users.filter((item) => item.email === userEmail);
       if (existUser.length !== 0) {
         if (existUser[0].password === userPassword) history.push("/");
         else alert("Informações incorretas!");
       } else {
         alert("Usuário não cadastrado!");
-      }
+      }*/
     } else {
       const isEqualsEmails = email === confirmEmail;
       const isEqualsPasswords = password === confirmPassword;

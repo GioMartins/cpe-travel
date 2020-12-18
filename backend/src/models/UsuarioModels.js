@@ -14,6 +14,12 @@ module.exports = {
         const result = await connection("usuario").where({ user_id: targetId }).select("*");
         return result;
     },
+
+    async getEvery(){
+        const result = await connection("usuario").select("*");
+        return result;
+    },
+
     async getByFields(fields) {
         const result = await connection("usuario").where(fields).select("*").first();
         return result;

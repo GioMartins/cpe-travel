@@ -34,7 +34,6 @@ module.exports = {
     async getUser(req, res){
         try {
             const result = await UsuarioModel.getEvery();
-
             res.status(200).json({ result });
         } catch (error) {
             console.warn("Internal server error while attempting to get user:", error);
