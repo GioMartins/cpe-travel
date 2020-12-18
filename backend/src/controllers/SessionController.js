@@ -7,16 +7,15 @@ module.exports = {
         try {
             //const { email, password } = req.body;
             const email = req.body.email;
-            const password = req.body.senha;
+            const senha = req.body.senha;
 
             let firebaseId;
             try {
-                firebaseId = await firebase.login(email, password);
+                firebaseId = await firebase.login(email, senha);
             } catch (error) {
                 console.warn(error);
                 return res.status(403).send("Login não autorizado: email ou senha incorretos!");
             }
-
             const usuario = await UserModel.getByFields({ firebase_id: firebaseId });
 
             const accessToken = jwt.sign({ usuario }, process.env.ACCESS_TOKEN_SECRET, { 

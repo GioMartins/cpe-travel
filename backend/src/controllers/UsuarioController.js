@@ -31,6 +31,17 @@ module.exports = {
         }
     },
 
+    async getUser(req, res){
+        try {
+            const result = await UsuarioModel.getEvery();
+
+            res.status(200).json({ result });
+        } catch (error) {
+            console.warn("Internal server error while attempting to get user:", error);
+            return res.status(500).send("Internal server error while attempting to get user.");
+        }
+    },
+
     async update(req, res){
         try {
             const targetId = req.params.usuarioId; // vem do params da rota
