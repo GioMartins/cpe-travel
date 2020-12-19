@@ -3,7 +3,7 @@ import { Form } from 'react-bootstrap';
 import './input.css';
 
 function Input({
-  input, setNome, setEmail, setSenha, setConfirmEmail, setConfirmPassword,
+  input, setNome, setEmail, setSenha, setConfirmEmail, setConfirmPassword, setNomeLocal, setPais, setPreco, setIntinerario,
 }) {
   return (
     <div>
@@ -14,6 +14,14 @@ function Input({
         }
         else if (item.type === 'email') {
           fn = item.controlId === 'email' ? setEmail : setConfirmEmail;
+        }else if (item.type === 'nomeLocal') {
+          fn = item.controlId === 'nomeLocal' ? setNomeLocal : setNomeLocal;
+        }else if (item.type === 'pais') {
+          fn = item.controlId === 'pais' ? setPais : setPais;
+        }else if (item.type === 'preco') {
+          fn = item.controlId === 'preco' ? setPreco : setPreco;
+        }else if (item.type === 'intinerario') {
+          fn = item.controlId === 'intinerario' ? setIntinerario : setIntinerario;
         } else {
           fn = item.controlId === 'senha' ? setSenha : setConfirmPassword;
         }

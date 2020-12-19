@@ -5,6 +5,7 @@ import { BiArrowBack } from "react-icons/bi";
 import { Button } from "react-bootstrap";
 import Input from "../input";
 import api from "../../services/api";
+import RegisterLocal from "../../pages/RegisterLocal";
 
 function Box({
   title,
@@ -16,6 +17,15 @@ function Box({
   email,
   password,
   senha,
+  nomeLocal,
+  user_id,
+  pais,
+  intinerario,
+  preco,
+  setNomeLocal,
+  setPais,
+  setIntinerario,
+  setPreco,
   confirmEmail,
   confirmPassword,
   setNome,
@@ -24,6 +34,7 @@ function Box({
   setConfirmEmail,
   setConfirmPassword,
 }) {
+  const idUsuarioCadastrado = localStorage.getItem('idCadastrado');
   const history = useHistory();
   const [users, setUsers] = useState([]);
   const url =
@@ -41,7 +52,36 @@ function Box({
     objetoBackend.senha = password;
     console.log(objetoBackend);
     try {
-      await api.post("login", objetoBackend);
+      let usuarios = await api.get("usuario");
+      let verificaLogin = 0;
+      let idSaida = "";
+      let nomeSaida = "";
+      let emailSaida = "";
+      let senhaSaida = "";
+      usuarios.data.result.map((i) => {
+        if (
+          objetoBackend.email === i.email &&
+          objetoBackend.senha === i.senha
+        ) {
+          idSaida = i.user_id;
+          nomeSaida = i.nome;
+          emailSaida = i.email;
+          senhaSaida = i.senha;
+          verificaLogin = 1;
+          return i;
+        }
+      });
+      if (verificaLogin === 1) {
+        localStorage.setItem("nomeCadastrado", nomeSaida);
+        localStorage.setItem("idCadastrado", idSaida);
+        localStorage.setItem("emailCadastrado", emailSaida);
+        localStorage.setItem("senhaCadastrado", senhaSaida);
+
+        alert("Login efetuado");
+        history.push("/");
+      } else {
+        alert("Usuario inexistente");
+      }
     } catch (err) {
       alert("Erro no Login");
     }
@@ -63,6 +103,27 @@ function Box({
       alert("Erro no cadastro!");
     }
   }
+  async function createLocal(objetoCadastro){
+    const objetoBackend = {
+      nome,
+      pais,
+      preco,
+      intinerario,
+      user_id,
+    }
+    objetoBackend.nome = objetoCadastro.nomeLocal;
+    objetoBackend.pais = objetoCadastro.pais;
+    objetoBackend.preco = objetoCadastro.preco;
+    objetoBackend.intinerario = objetoCadastro.intinerario;
+    objetoBackend.user_id = objetoCadastro.idUsuarioCadastrado;
+    console.log(objetoBackend);
+    try {
+      await api.post("local", objetoBackend);
+      alert("Local Cadastrado");
+    } catch {
+      alert("Erro no cadastro!");
+    }
+  }
 
   const registerUser = () => {
     create({
@@ -71,20 +132,22 @@ function Box({
       password,
     });
   };
+  const registerLocal = () => {
+    createLocal({
+      nomeLocal,
+      pais,
+      preco,
+      intinerario,
+      idUsuarioCadastrado,
+    })
+  }
 
   const handleClick = () => {
     if (nextButton === "Cadastrar") {
       const userEmail = email;
       const userPassword = password;
       loginUser();
-      /*const existUser = users.filter((item) => item.email === userEmail);
-      if (existUser.length !== 0) {
-        if (existUser[0].password === userPassword) history.push("/");
-        else alert("Informações incorretas!");
-      } else {
-        alert("Usuário não cadastrado!");
-      }*/
-    } else {
+    } else if (nextButton === "Logar") {
       const isEqualsEmails = email === confirmEmail;
       const isEqualsPasswords = password === confirmPassword;
       const alreadyRegister = users.filter((item) => item.email === email);
@@ -94,6 +157,8 @@ function Box({
         registerUser();
         history.push("/login");
       } else alert("Email ou senha não coincidem com confirmação");
+    } else {
+      registerLocal();
     }
   };
 
@@ -121,6 +186,10 @@ function Box({
             setEmail={setEmail}
             setConfirmEmail={setConfirmEmail}
             setConfirmPassword={setConfirmPassword}
+            setPais={setPais}
+            setPreco={setPreco}
+            setNomeLocal={setNomeLocal}
+            setIntinerario={setIntinerario}
           />
 
           {nextButton === "Cadastrar" && (

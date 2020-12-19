@@ -30,7 +30,6 @@ routes.get(
 );
 routes.get(
   "/usuario",
-  auth.authenticateToken,
   UsuarioController.getUser
 );
 

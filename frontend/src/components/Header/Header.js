@@ -75,6 +75,8 @@ function BurgerMenu(setAdmin) {
 }
 
 function Header({ setAdmin }) {
+  const nomeUsuarioCadastrado = localStorage.getItem('nomeCadastrado');
+
   const headerItens = [
     {
       icon: <TiPlaneOutline className="icons" />,
@@ -120,7 +122,7 @@ function Header({ setAdmin }) {
         </div>
       </div>
       {BurgerMenu(setAdmin)}
-      <div className="rightContainer">
+      <div className="rightContainer" >
         <MyButton configMargin="0px 5px 0px 0px" page="/cadastro">Cadastre-se</MyButton>
         <p className="bar">|</p>
         <MyButton configMargin="0px 0px 0px 5px" page="/login">Entrar</MyButton>
